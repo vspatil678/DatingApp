@@ -12,7 +12,11 @@ namespace DatingApp.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
+        // bellow tables are added to MSSQL DB by EntityFramework Core using Migration
+        // initial table creation adding Values Table
         public DbSet<Value> Values { get; set; }
+        
+        // adding Users Table
+        public DbSet<User> Users { get; set; }
     }
 }
