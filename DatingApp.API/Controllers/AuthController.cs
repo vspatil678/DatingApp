@@ -52,7 +52,7 @@ namespace DatingApp.API.Controllers
             var userFromRepo = await this._authRepository.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.PassWord);
             if(userFromRepo == null)
             {
-                return Unauthorized("user name or password is invalid");
+                return StatusCode(401, "UserName or Password is invalid");
             }
 
             var claims = new[]

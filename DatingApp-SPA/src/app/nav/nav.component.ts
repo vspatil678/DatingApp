@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+import { UserForLoginDto } from '../models/user-for-login-dto';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-nav',
@@ -8,26 +11,39 @@ import { AuthService } from '../_services/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  public model: any = {};
-  constructor(private authService: AuthService) { }
+  public loginForm: FormGroup;
+  public model: UserForLoginDto;
+  constructor(public authService: AuthService,
+              private alertifyService: AlertifyService,
+              private formBuilder: FormBuilder) {
+                this.buildLoginForm();
+              }
 
   ngOnInit() {
   }
 
-  public login() {
-    this.authService.login(this.model).subscribe(next => { this.model = next ; console.log('logged in successfuly'); },
-    error => { console.log('Failed to login' + error); });
-    console.log(this.model);
+  public login(loginDto: UserForLoginDto) {
+    this.authService.login(loginDto).subscribe(next => {
+    this.alertifyService.success('logged in successfuly'); },
+    error => { this.alertifyService.error('Failed to login' + error); console.log(error); });
   }
 
   public loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token; // returns true if we have token else false
+    return this.authService.loggedIn();
+    // const token = localStorage.getItem('token');
+    // return !!token; // returns true if we have token else false
   }
 
   public logOut() {
     localStorage.removeItem('token');
-    console.log('log out');
+    this.alertifyService.message('log out');
+  }
+
+  private buildLoginForm() {
+    this.loginForm = this.formBuilder.group({
+      UserName: [''],
+      PassWord: ['']
+    });
   }
 
 }
