@@ -3,6 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { UserForLoginDto } from '../models/user-for-login-dto';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +16,8 @@ export class NavComponent implements OnInit {
   public model: UserForLoginDto;
   constructor(public authService: AuthService,
               private alertifyService: AlertifyService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
                 this.buildLoginForm();
               }
 
@@ -25,7 +27,8 @@ export class NavComponent implements OnInit {
   public login(loginDto: UserForLoginDto) {
     this.authService.login(loginDto).subscribe(next => {
     this.alertifyService.success('logged in successfuly'); },
-    error => { this.alertifyService.error('Failed to login' + error); console.log(error); });
+    error => { this.alertifyService.error('Failed to login' + error); console.log(error); },
+    () => { this.router.navigate(['/members']); });
   }
 
   public loggedIn() {
@@ -37,6 +40,7 @@ export class NavComponent implements OnInit {
   public logOut() {
     localStorage.removeItem('token');
     this.alertifyService.message('log out');
+    this.router.navigate(['/home']);
   }
 
   private buildLoginForm() {
