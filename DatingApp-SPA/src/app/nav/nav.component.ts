@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { UserForLoginDto } from '../models/user-for-login-dto';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -45,8 +45,8 @@ export class NavComponent implements OnInit {
 
   private buildLoginForm() {
     this.loginForm = this.formBuilder.group({
-      UserName: [''],
-      PassWord: ['']
+      UserName: ['', Validators.required],
+      PassWord: ['', Validators.required]
     });
   }
 

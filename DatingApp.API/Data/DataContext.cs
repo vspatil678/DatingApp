@@ -18,5 +18,8 @@ namespace DatingApp.API.Data
         
         // adding Users Table
         public DbSet<User> Users { get; set; }
+
+        // adding Photos table
+        public DbSet<Photo> Photos { get; set; }
     }
 }

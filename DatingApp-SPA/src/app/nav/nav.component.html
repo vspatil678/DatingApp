@@ -31,7 +31,7 @@
           <input class="form-control mr-sm-2" type="password" placeholder="PassWord" required
             formControlName="PassWord" />
           <button class="btn btn-success my-2 my-sm-0" type="submit" [disabled]="!loginForm.valid"
-            (click)="login(this.loginForm.value)">
+            (click)="login(this.loginForm.value)" [ngClass]="this.loginForm.valid ? 'cursor-allowed' : 'cursor-not-allowed' " >
             Login
           </button>
         </form>
