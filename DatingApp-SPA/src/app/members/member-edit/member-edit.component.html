@@ -1,0 +1,66 @@
+<div class="container mt-4">  
+  <div class="row">
+    <div class="col-sm-4">
+        <h1>your profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <div class="alert alert-info" *ngIf="this.userEditForm.dirty">
+        <p><strong>Information:</strong>You have made changes. Any unsaved changes will be lost!.</p>
+      </div>
+    </div>
+  </div>
+<div class="row"> 
+  <div class="col-sm-4">  
+    <div class="card">  
+      <img class="card-img-top img-thumbnail" src="{{user.PhotoUrl}}" alt="{{user.KnownAs}}">
+      <div class="card-body"> 
+        <div>
+          <strong>Location:</strong>
+          <p>{{user.City}}, {{user.Country}}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{user.Age}}</p>
+        </div>
+        <div>
+          <strong>Last Active:</strong>
+          <p>{{user.LastActive}}</p>
+        </div>
+        <div>
+          <strong>Member since:</strong>
+          <p>{{user.Created}}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+          <button [disabled]="!this.userEditForm.dirty" class="btn btn-success btn-block" (click)="updateUserInfo(userEditForm.value)">Save Changes</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">  
+    <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Edit profile">
+          <form [formGroup]="userEditForm">
+              <h4>Description</h4>
+            <textarea  rows="8" class="form-control" formControlName="Introduction"></textarea>
+            <h4>Looking For</h4>
+            <textarea  rows="8" class="form-control" formControlName="LookingFor"></textarea>
+            <h4>Interests</h4>
+            <textarea  rows="8" class="form-control" formControlName="Interests"></textarea>
+            <h4>Location Details</h4>
+            <div class="form-inline">
+              <label>City</label>
+              <input type="text" class="form-control" formControlName="City">
+              <label>Country</label>
+              <input type="text" class="form-control" formControlName="Country">
+            </div>
+          </form>
+        </tab>
+        <tab heading="Edit Photos">
+          <p>Photo edit will go here</p>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+</div>
