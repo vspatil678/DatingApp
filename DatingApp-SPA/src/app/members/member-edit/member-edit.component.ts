@@ -15,6 +15,7 @@ export class MemberEditComponent implements OnInit {
 
   public user: User;
   public userEditForm: FormGroup;
+  public photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.userEditForm.dirty) {
@@ -39,6 +40,7 @@ export class MemberEditComponent implements OnInit {
     }, error => {
       this.alertifyService.error(error);
     });
+    this.authService.currentPhotoUrl.subscribe(photoUrl =>  this.photoUrl = photoUrl);
   }
 
   private buildUserEditForm() {
@@ -82,9 +84,15 @@ export class MemberEditComponent implements OnInit {
   public updateUserInfo(userInfo: User) {
     this.userService.updateUser(this.authService.decodedToken.nameid , userInfo).subscribe( (next) => {
       this.alertifyService.success('Profile updated successfully.');
+      this.userEditForm.reset();
+      this.router.navigate(['/members']);
     }, (error) => {
       this.alertifyService.error(error);
      });
+  }
+
+  public updateMainPhoto(photoUrl) {
+      this.user.PhotoUrl = photoUrl;
   }
 
 }

@@ -14,6 +14,7 @@ export class NavComponent implements OnInit {
 
   public loginForm: FormGroup;
   public model: UserForLoginDto;
+  public photoUrl: string;
   constructor(public authService: AuthService,
               private alertifyService: AlertifyService,
               private formBuilder: FormBuilder,
@@ -22,6 +23,7 @@ export class NavComponent implements OnInit {
               }
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   public login(loginDto: UserForLoginDto) {
@@ -39,6 +41,9 @@ export class NavComponent implements OnInit {
 
   public logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     this.alertifyService.message('log out');
     this.router.navigate(['/home']);
   }
