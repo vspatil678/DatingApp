@@ -6,6 +6,7 @@ import { UserForLoginDto } from '../models/user-for-login-dto';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { BehaviorSubject } from 'rxjs';
+import { UserForRegistrationDto } from '../models/user-for-registration-dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,8 +44,8 @@ public login(model: any) {
   }));
 }
 
-public register(model: any) {
-  return this.http.post(this.baseUrl + '/register', model);
+public register(user: User) {
+  return this.http.post(this.baseUrl + '/register', user);
 }
 
 public loggedIn() {
