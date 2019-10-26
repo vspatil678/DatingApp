@@ -40,6 +40,7 @@ export class NavComponent implements OnInit {
   }
 
   public logOut() {
+    this.loginForm.reset();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.authService.decodedToken = null;

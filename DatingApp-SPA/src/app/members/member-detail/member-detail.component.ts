@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-member-detail',
@@ -12,6 +13,7 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
+  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
   public user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -25,6 +27,11 @@ export class MemberDetailComponent implements OnInit {
     // this.loadUser(); --> this method is not required after using resolver we are getting data from resolver
     this.routes.data.subscribe(data => {
       this.user = data.user; // data.user here user is from resolver
+    });
+
+    this.routes.queryParams.subscribe(params => {
+      const selectedTab = params.tab;
+      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
     });
 
     this.galleryOptions = [
@@ -53,6 +60,11 @@ export class MemberDetailComponent implements OnInit {
 
     return imageUrls;
   }
+
+  public selectTab(tabId: number) {
+    this.memberTabs.tabs[tabId].active = true;
+  }
+
   // members/4 the bellow code is used without resolver and we have to use ? like  user?UserName
   // to avoid ? - we have to use resolver
   // public loadUser() {
