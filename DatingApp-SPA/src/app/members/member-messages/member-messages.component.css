@@ -19,6 +19,10 @@
     width: 50px;
 }
 
+.mice-icon {
+    cursor: pointer;
+}
+
 .card-body {
     overflow-y: scroll;
     height: 400px;

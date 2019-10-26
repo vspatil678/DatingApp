@@ -55,5 +55,4 @@ export class NavComponent implements OnInit {
       PassWord: ['', Validators.required]
     });
   }
-
 }

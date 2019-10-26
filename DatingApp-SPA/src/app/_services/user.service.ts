@@ -104,5 +104,4 @@ public deleteMessage(id: number, userId: number) {
 public markMessageAsRead(userId: number, id: number) {
   return this.http.post(this.baseUrl + 'users/' + userId + '/Messages/' + id + '/read' , {});
 }
-
 }

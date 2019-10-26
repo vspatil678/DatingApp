@@ -1,25 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from 'src/app/models/Message';
 import { AuthService } from 'src/app/_services/auth.service';
 import { tap } from 'rxjs/operators';
+import { SpeechRecognizationService } from 'src/app/_services/speech-recognization.service';
 
 @Component({
   selector: 'app-member-messages',
   templateUrl: './member-messages.component.html',
   styleUrls: ['./member-messages.component.css']
 })
-export class MemberMessagesComponent implements OnInit {
+export class MemberMessagesComponent implements OnInit, OnDestroy {
 
  @Input() public recipientId: number;
   public messages: Message[] = [];
   public newMessage: any = {};
+  public speechData = '';
+  public showSpeechButton = true;
   constructor(private usersService: UserService,
               private alertify: AlertifyService,
               private authService: AuthService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private speechRecognizationService: SpeechRecognizationService) { }
 
   ngOnInit() {
     this.loadMessages();
@@ -48,5 +52,42 @@ export class MemberMessagesComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+  }
+ public activateSpeechToText(): void {
+    this.showSpeechButton = false;
+
+    this.speechRecognizationService.record().subscribe(
+        // listener
+        (value) => {
+            this.speechData = value;
+            this.newMessage.content = this.newMessage.content + value;
+            console.log(value);
+        },
+        // errror
+        (err) => {
+            console.log(err);
+            if (err.error === 'no-speech') {
+                console.log('--restatring service--');
+                this.activateSpeechToText();
+            }
+        },
+        // completion
+        () => {
+            this.showSpeechButton = true;
+            console.log('--complete--');
+            this.activateSpeechToText();
+        });
+}
+
+public stopSpeechToText(e: any) {
+  // nothing worked to stop listening
+  this.showSpeechButton = true;
+  e.stopPropagation();
+  e.cancelBubble = true;
+  window.event.cancelBubble = true;
+  window.stop();
+}
+  ngOnDestroy(): void {
+    this.speechRecognizationService.DestroySpeechObject();
   }
 }

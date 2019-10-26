@@ -34,6 +34,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -74,6 +75,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
      // MembersModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      TooltipModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
