@@ -38,7 +38,10 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             // ConnectionString is declared in appsettings.json
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DatingAppDBConnection")));
+            services.AddDbContext<DataContext>(x => {
+                x.UseLazyLoadingProxies();
+                x.UseSqlServer(Configuration.GetConnectionString("DatingAppDBConnection"));
+            });
             // .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             // used to make all properties in camel case in response (id to Id, value to Value)
             services.AddMvc().AddJsonOptions(
@@ -93,7 +96,14 @@ namespace DatingApp.API
             // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes => {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Fallback", action = "Index"}
+                        );
+            });
         }
     }
 }

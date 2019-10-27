@@ -17,7 +17,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { UserService } from './_services/user.service';
-import { MembersModule } from './members/members.module';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -72,7 +71,6 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PaginationModule.forRoot(),
       ButtonsModule.forRoot(),
       TabsModule.forRoot(),
-     // MembersModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
