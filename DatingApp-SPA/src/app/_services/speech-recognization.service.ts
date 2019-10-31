@@ -34,10 +34,10 @@ public record(): Observable<string> {
               const transcript = result[0].transcript;
               if (result.isFinal) {
                   if (result[0].confidence < 0.3) {
-                      console.log('Unrecognized result - Please try again');
+                    //  console.log('Unrecognized result - Please try again');
                   } else {
                       term = _.trim(transcript);
-                      console.log('Did you said? -> " + term + " , If not then say something else...');
+                     // console.log('Did you said? -> " + term + " , If not then say something else...');
                   }
               }
           }
@@ -55,7 +55,7 @@ public record(): Observable<string> {
       };
 
       this.speechRecognition.start();
-      console.log('Say something - We are listening !!!');
+     // console.log('Say something - We are listening !!!');
   });
 }
 

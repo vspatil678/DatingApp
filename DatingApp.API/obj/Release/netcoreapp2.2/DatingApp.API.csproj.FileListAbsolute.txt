@@ -1,0 +1,14 @@
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\bin\Release\netcoreapp2.2\DatingApp.API.deps.json
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\bin\Release\netcoreapp2.2\DatingApp.API.runtimeconfig.json
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\bin\Release\netcoreapp2.2\DatingApp.API.runtimeconfig.dev.json
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\bin\Release\netcoreapp2.2\DatingApp.API.dll
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\bin\Release\netcoreapp2.2\DatingApp.API.pdb
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.csprojAssemblyReference.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.csproj.CoreCompileInputs.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.RazorAssemblyInfo.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.RazorAssemblyInfo.cs
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.AssemblyInfoInputs.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.AssemblyInfo.cs
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.RazorTargetAssemblyInfo.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.dll
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Release\netcoreapp2.2\DatingApp.API.pdb

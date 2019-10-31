@@ -6,7 +6,9 @@ import { Message } from 'src/app/models/Message';
 import { AuthService } from 'src/app/_services/auth.service';
 import { tap } from 'rxjs/operators';
 import { SpeechRecognizationService } from 'src/app/_services/speech-recognization.service';
+import Speech from 'speak-tts';
 
+const speech = new Speech();
 @Component({
   selector: 'app-member-messages',
   templateUrl: './member-messages.component.html',
@@ -19,6 +21,8 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
   public newMessage: any = {};
   public speechData = '';
   public showSpeechButton = true;
+  public showSpeakerButton = true;
+  public selectedId = 0;
   constructor(private usersService: UserService,
               private alertify: AlertifyService,
               private authService: AuthService,
@@ -59,35 +63,59 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
     this.speechRecognizationService.record().subscribe(
         // listener
         (value) => {
+          if (value) {
             this.speechData = value;
+            this.newMessage.content = '';
             this.newMessage.content = this.newMessage.content + value;
-            console.log(value);
+          }
         },
         // errror
         (err) => {
-            console.log(err);
+            // console.log(err);
             if (err.error === 'no-speech') {
-                console.log('--restatring service--');
+              //  console.log('--restatring service--');
                 this.activateSpeechToText();
             }
         },
         // completion
         () => {
             this.showSpeechButton = true;
-            console.log('--complete--');
-            this.activateSpeechToText();
+           // console.log('--complete--');
+            this.stopSpeechToText(event);
         });
 }
 
 public stopSpeechToText(e: any) {
-  // nothing worked to stop listening
   this.showSpeechButton = true;
+  e.preventDefault();
   e.stopPropagation();
-  e.cancelBubble = true;
-  window.event.cancelBubble = true;
-  window.stop();
+  this.speechRecognizationService.DestroySpeechObject();
 }
   ngOnDestroy(): void {
     this.speechRecognizationService.DestroySpeechObject();
+  }
+
+  public onTextToSpeech(textData: any, id: number) {
+    this.showSpeakerButton = false;
+    this.selectedId = id;
+    if (speech.hasBrowserSupport()) {
+     // speech.setVoice('Fiona');
+      speech.speak({
+        text: textData,
+        listeners: {
+          onend: () => {
+            this.onStopTextToSpeech();
+        }
+        }
+      });
+    } else {
+      this.alertify.error('your browser dosent support speech synthesis.');
+    }
+  }
+
+  public onStopTextToSpeech() {
+    this.selectedId = 0;
+    this.showSpeakerButton = true;
+    speech.cancel();
   }
 }

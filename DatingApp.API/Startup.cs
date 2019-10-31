@@ -38,14 +38,20 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             // ConnectionString is declared in appsettings.json
-            services.AddDbContext<DataContext>(x => {
+            services.AddDbContext<DataContext>(x =>
+            {
                 x.UseLazyLoadingProxies();
-                x.UseSqlServer(Configuration.GetConnectionString("DatingAppDBConnection"));
+                // development connectionstring
+                  x.UseSqlServer(Configuration.GetConnectionString("DatingAppDBConnection"));
+                // production connection string from azure
+               // x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             // .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             // used to make all properties in camel case in response (id to Id, value to Value)
             services.AddMvc().AddJsonOptions(
-                options => { options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                options =>
+                {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
@@ -54,7 +60,8 @@ namespace DatingApp.API
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
+                .AddJwtBearer(options =>
+                {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuerSigningKey = true,
@@ -77,12 +84,13 @@ namespace DatingApp.API
             }
             else
             {
-                app.UseExceptionHandler(handler => {
+                app.UseExceptionHandler(handler =>
+                {
                     handler.Run(async context =>
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if(error != null)
+                        if (error != null)
                         {
                             context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
@@ -90,20 +98,25 @@ namespace DatingApp.API
                     });
                 });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                // app.UseHsts();
+              app.UseHsts();
             }
-
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvc(routes => {
+            app.UseMvc(routes =>
+            {
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Fallback", action = "Index"}
+                    defaults: new { controller = "Fallback", action = "Index" }
                         );
             });
         }
     }
 }
+
+// this is the connection string(now we are getting connection string from azure otherwise it should be in appsettings.json)
+//"ConnectionStrings": {
+//        "DatingAppDBConnection": "server=LAPTOP-SN0B0HHM; database=DatingApp; Trusted_Connection=true;"
+//    },

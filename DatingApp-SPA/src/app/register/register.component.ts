@@ -76,7 +76,6 @@ export class RegisterComponent implements OnInit {
     for (const name in controls) {
         if (controls[name].invalid) {
             invalid.push(name);
-            console.log(name);
         }
     }
     return invalid;

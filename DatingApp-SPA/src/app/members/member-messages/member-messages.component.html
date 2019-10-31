@@ -7,7 +7,7 @@
       <p>No messages yet... say hi by using the message box bellow</p>
     </div>
     <ul class="chat">
-      <li *ngFor="let message of this.messages">
+      <li *ngFor="let message of this.messages; let id = index">
 
         <!-- to them -->
         <div *ngIf="message.SenderId == recipientId">
@@ -21,7 +21,9 @@
                 <span class="fa fa-clock-o">{{message.MessageSent | timeAgo}}</span>
               </small>
             </div>
-            <p>{{message.Content}}</p>
+            <p>{{message.Content}} 
+              <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.Id" tooltip="play alexa" (click)="onTextToSpeech(message.Content, message.Id)">play_circle_filled</i> 
+              <i  tooltip="stop alexa" class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.Id" (click)="onStopTextToSpeech()">volume_off</i></p> 
           </div>
         </div>
 
@@ -40,7 +42,9 @@
                     </small>
                 <strong class="primary-font float-right">{{message.SenderKnownAs}}</strong>
               </div>
-              <p>{{message.Content}}</p>
+              <p>{{message.Content}}
+                 <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.Id" tooltip="play alexa" (click)="onTextToSpeech(message.Content, message.Id)">play_circle_filled</i> 
+                 <i  class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.Id" tooltip="stop alexa" (click)="onStopTextToSpeech()">volume_off</i></p>
             </div>
           </div>
       </li>
@@ -49,13 +53,13 @@
   <div class="card-footer">
     <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
       <div class="input-group">
-        <input type="text" 
+        <input type="text" spellcheck="true"
         [(ngModel)]="this.newMessage.content"
         name ="content" required
         class="form-control input-sm" placeholder="send message">
         <div class="input-group-append">
           <i class="material-icons mice-icon mr-1" (click)="activateSpeechToText()" *ngIf="showSpeechButton" tooltip="listen me">record_voice_over</i>
-          <i class="material-icons mice-icon mr-1" (click)="stopSpeechToText($event); $event.stopPropagation();" *ngIf="!showSpeechButton" tooltip ="stop audio">voice_over_off</i>
+          <i class="material-icons mice-icon mr-1" (click)="stopSpeechToText($event); $event.stopPropagation();" *ngIf="!showSpeechButton" tooltip ="stop listening">voice_over_off</i>
           <button class="btn btn-primary" [disabled]="!messageForm.valid">Send</button>
         </div>
       </div>
