@@ -34,6 +34,7 @@ import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ChatModule } from './chat/chat.module';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -61,6 +62,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       TimeAgoPipe
    ],
    imports: [
+      ChatModule,
       FileUploadModule,
       NgxGalleryModule,
       BrowserModule,

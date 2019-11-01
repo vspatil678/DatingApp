@@ -1,0 +1,26 @@
+
+
+ <h1>Dating Bot</h1>
+
+<ng-container *ngFor="let message of messages | async">
+
+  <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
+                                    'to':   message.sentBy === 'user' }">
+    {{ message.content }}
+  </div>
+
+</ng-container>
+
+<div class="form-group">
+        <div class="row">
+             <!-- <div class="col-md-2"> -->
+                    <label for="nameField" class="label mr-2">Your Message:</label>
+             <!-- </div> -->
+             <!-- <div class="col-md-6"> -->
+                    <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" class="form-control msg-box mr-2">
+             <!-- </div> -->
+             <!-- <div class="col-md-2"> -->
+                    <button (click)="sendMessage()" class="btn btn-primary label" [disabled]="!formValue.trim().length">Send</button>
+             <!-- </div> -->
+        </div>
+     </div>

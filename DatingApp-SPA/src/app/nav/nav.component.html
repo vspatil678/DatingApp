@@ -24,6 +24,8 @@
         <div class="dropdown-menu mt-3" *dropdownMenu>
           <a class="dropdown-item" [routerLink]="['/member/edit']" routerLinkActive="router-link-active"  ><i class="fa fa-user"></i>Edit Profile</a>
           <div class="dropdown-devider"></div>
+          <a class="dropdown-item" [routerLink]="['/chat/chatbot']" routerLinkActive="router-link-active"  ><i class="fa fa-user"></i>Chat with Us</a>
+          <div class="dropdown-devider"></div>
           <a class="dropdown-item" (click)="logOut()" ><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </div>

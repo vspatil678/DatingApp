@@ -9,7 +9,8 @@
     "src/polyfills.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "../node_modules/api-ai-javascript/index.ts",
   ],
   "exclude": [
     "src/test.ts",
