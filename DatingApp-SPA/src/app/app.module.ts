@@ -35,6 +35,12 @@ import { MessagesResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ChatModule } from './chat/chat.module';
+import { WebcamModule } from 'ngx-webcam';
+import { TakePhotoComponent } from './members/take-photo/take-photo.component';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -59,9 +65,13 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberEditComponent,
       PhotoEditorComponent,
       MemberMessagesComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      TakePhotoComponent
    ],
    imports: [
+      MatIconModule,
+      MatCardModule,
+      MatDialogModule,
       ChatModule,
       FileUploadModule,
       NgxGalleryModule,
@@ -77,6 +87,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      WebcamModule,
+      ModalModule.forRoot(),
       JwtModule.forRoot({
          config: {
             // tslint:disable-next-line: object-literal-shorthand
@@ -88,6 +100,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       }),
    ],
    providers: [
+      BsModalRef,
       PreventUnsavedChanges,
       MemberEditResolver,
       MemberDetailResolver,
@@ -98,6 +111,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       AuthService,
       UserService,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+   ],
+   entryComponents: [
+         TakePhotoComponent
    ],
    bootstrap: [
       AppComponent

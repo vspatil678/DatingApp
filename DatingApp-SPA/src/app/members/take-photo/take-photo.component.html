@@ -1,0 +1,34 @@
+<mat-card class="container">
+  <i class="material-icons close" (click)="onCloseCamera()">close</i>
+  <div class="row">
+    <div class="col-md-8">
+      <webcam *ngIf="!this.webcamImage"  [trigger]="triggerObservable"
+        (imageCapture)="handleImage($event)" [imageQuality]="1" (initError)="handleInitError($event)"></webcam>
+      <div *ngIf="webcamImage">
+        <h2>Nice one!</h2>
+        <img [src]="webcamImage.imageAsDataUrl" />
+      </div>
+      <button class="btn btn-primary" (click)="onTakePhoto()" *ngIf="!this.webcamImage">take photo</button>
+      <button class="btn btn-primary" *ngIf="webcamImage" (click)="onTryNewPhoto()">Try another</button>
+      <button class="btn btn-primary ml-4" *ngIf="webcamImage" (click)="onSetAsProfilePhoto(webcamImage)">set as profile photo</button>
+    </div>
+    <div class="col-md-4" *ngIf="webcamImage">
+      <div class="row">
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+          <p>taken photo details</p>
+      </div>
+    </div>
+  </div>
+</mat-card>

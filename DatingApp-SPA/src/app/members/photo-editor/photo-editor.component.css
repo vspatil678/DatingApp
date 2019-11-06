@@ -11,3 +11,8 @@ img.img-thumbnail {
 input[type=file] {
     color: transparent;
 }
+
+.modal-dialog {
+    max-width: 600px !important;
+    width: 600px !important;
+}

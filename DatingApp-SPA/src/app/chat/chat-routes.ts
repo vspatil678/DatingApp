@@ -4,8 +4,7 @@ import { AuthGuard } from '../_guards/auth.guard';
 
 export const chatRoutes: Routes = [
 {
-    // path: 'chat/chatbot', component: ChatDialogComponent, canActivate: [AuthGuard]
-    path: 'chat/chatbot', component: ChatDialogComponent
+     path: 'chat/chatbot', component: ChatDialogComponent, canActivate: [AuthGuard]
 }
 ];
 

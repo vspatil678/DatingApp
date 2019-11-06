@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { Photo } from 'src/app/models/photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { TakePhotoComponent } from '../take-photo/take-photo.component';
+import { MatDialog } from '@angular/material/dialog';
 
 const baseUrl = environment.apiUrl;
 @Component({
@@ -21,7 +23,8 @@ export class PhotoEditorComponent implements OnInit {
   public currentMainPhoto: Photo;
   constructor(private authService: AuthService,
               private userService: UserService,
-              private alertifyService: AlertifyService) { }
+              private alertifyService: AlertifyService,
+              private matDailog: MatDialog) { }
 
   ngOnInit() {
     this.initializeUploader();
@@ -84,6 +87,11 @@ export class PhotoEditorComponent implements OnInit {
          this.alertifyService.success('photo deleted successfully');
          }, (error) => { this.alertifyService.error('Fail to delete photo' + error); });
          });
+  }
+
+  public onOpenCamera() {
+    const modalRef =  this.matDailog.open(TakePhotoComponent);
+    modalRef.componentInstance.photos = this.photos;
   }
 
 }
