@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../models/User';
 import { PaginatedResult } from '../models/Pagination';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Message } from '../models/Message';
 
 @Injectable({
@@ -13,6 +13,12 @@ import { Message } from '../models/Message';
 export class UserService {
 private baseUrl = environment.apiUrl;
 constructor(private http: HttpClient) { }
+
+headers = {
+  headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+  })
+};
 
 public getUsers(page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<User[]>> {
   const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
@@ -103,5 +109,28 @@ public deleteMessage(id: number, userId: number) {
 
 public markMessageAsRead(userId: number, id: number) {
   return this.http.post(this.baseUrl + 'users/' + userId + '/Messages/' + id + '/read' , {});
+}
+
+public uploadCameraClickedPhoto(userId: number, cameraImage: any) {
+  this.headers.headers.append('Content-Disposition', 'multipart/form-data');
+  const reader = new FileReader();
+  console.log(cameraImage);
+  console.log(typeof(cameraImage));
+  return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + 'photoFromCamera', JSON.stringify(cameraImage), this.headers).pipe(
+    catchError(this.handleError)
+  );
+}
+
+handleError(error) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // client-side error
+    errorMessage = `Error: ${error.error.message}`;
+  } else {
+    // server-side error
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  window.alert(errorMessage);
+  return throwError(errorMessage);
 }
 }

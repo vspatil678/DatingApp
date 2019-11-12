@@ -10,7 +10,7 @@
       </div>
       <button class="btn btn-primary" (click)="onTakePhoto()" *ngIf="!this.webcamImage">take photo</button>
       <button class="btn btn-primary" *ngIf="webcamImage" (click)="onTryNewPhoto()">Try another</button>
-      <button class="btn btn-primary ml-4" *ngIf="webcamImage" (click)="onSetAsProfilePhoto(webcamImage)">set as profile photo</button>
+      <button class="btn btn-primary ml-4" *ngIf="webcamImage" (click)="onSetAsProfilePhoto()">set as profile photo</button>
     </div>
     <div class="col-md-4" *ngIf="webcamImage">
       <div class="row">

@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using DatingApp.API.Data;
+using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using DatingApp.API.Dtos;
-using System.Security.Claims;
-using CloudinaryDotNet.Actions;
-using DatingApp.API.Models;
-
 namespace DatingApp.API.Controllers
 {
     [Authorize]
@@ -52,7 +53,7 @@ namespace DatingApp.API.Controllers
 
             var file = photoForCreationDto.File;
             var uploadResult = new ImageUploadResult();
-            if(file.Length > 0)
+            if (file.Length > 0)
             {
                 using (var stream = file.OpenReadStream())
                 {
@@ -63,20 +64,20 @@ namespace DatingApp.API.Controllers
                     };
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
-                
+
             }
 
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
-            if(!userFromRepo.Photos.Any(p => p.IsMain))
+            if (!userFromRepo.Photos.Any(p => p.IsMain))
             {
                 photo.IsMain = true;
             }
             userFromRepo.Photos.Add(photo);
-            
-            if(await _repository.SaveAll())
+
+            if (await _repository.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
@@ -86,10 +87,10 @@ namespace DatingApp.API.Controllers
 
         }
 
-        [HttpGet("{id}", Name ="GetPhoto")]
+        [HttpGet("{id}", Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)
         {
-            var photoFromRepo =await _repository.GetPhoto(id);
+            var photoFromRepo = await _repository.GetPhoto(id);
             var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
             return Ok(photo);
         }
@@ -104,14 +105,14 @@ namespace DatingApp.API.Controllers
 
             var userFromRepo = await this._repository.GetUser(userId);
 
-            if(!userFromRepo.Photos.Any(p => p.Id == photoId))
+            if (!userFromRepo.Photos.Any(p => p.Id == photoId))
             {
                 return Unauthorized();
             }
 
             var photoFromRepo = await _repository.GetPhoto(photoId);
 
-            if(photoFromRepo.IsMain)
+            if (photoFromRepo.IsMain)
             {
                 return BadRequest("This is alerady the main photo");
             }
@@ -121,7 +122,7 @@ namespace DatingApp.API.Controllers
 
             photoFromRepo.IsMain = true;
 
-            if(await this._repository.SaveAll())
+            if (await this._repository.SaveAll())
             {
                 return NoContent();
             }
@@ -150,7 +151,7 @@ namespace DatingApp.API.Controllers
             {
                 return BadRequest("you canot delete your main photo");
             }
-            if(photoFromRepo.PublicId != null)
+            if (photoFromRepo.PublicId != null)
             {
                 var deleteParams = new DeletionParams(photoFromRepo.PublicId);
                 var result = _cloudinary.Destroy(deleteParams);
@@ -165,7 +166,7 @@ namespace DatingApp.API.Controllers
                 _repository.Delete(photoFromRepo);
             }
 
-            if(await _repository.SaveAll())
+            if (await _repository.SaveAll())
             {
                 return Ok();
             }
@@ -174,5 +175,61 @@ namespace DatingApp.API.Controllers
         }
 
 
+        [HttpPost("photoFromCamera")]
+        // public async Task<IActionResult> UploadPhotoFromCamera([FromBody]IFormFile cameraImage)
+        // FromForm
+        public async Task<IActionResult> UploadPhotoFromCamera(int userId, [FromForm]PhotoForCreationDto photoForCreationDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+            var userFromRepo = await this._repository.GetUser(userId);
+            var file = photoForCreationDto.File;
+            var uploadResult = new ImageUploadResult();
+            if (file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                    };
+                    uploadResult = _cloudinary.Upload(uploadParams);
+                }
+
+            } else
+            {
+                return BadRequest("File Should not be Empty");
+            }
+            photoForCreationDto.Url = uploadResult.Uri.ToString();
+            photoForCreationDto.PublicId = uploadResult.PublicId;
+            var photo = _mapper.Map<Photo>(photoForCreationDto);
+
+            if (!userFromRepo.Photos.Any(p => p.IsMain))
+            {
+                photo.IsMain = true;
+            }
+            userFromRepo.Photos.Add(photo);
+
+            if (await _repository.SaveAll())
+            {
+                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+                return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
+            }
+
+            return BadRequest("Could not add the photo");
+        }
+
+        public static Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
     }
 }

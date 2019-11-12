@@ -11,3 +11,4 @@ C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Debug\netcoreapp
 C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.2\DatingApp.API.RazorTargetAssemblyInfo.cache
 C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.2\DatingApp.API.dll
 C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.2\DatingApp.API.pdb
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\DatingApp.API\obj\Debug\netcoreapp2.2\DatingApp.API.csprojAssemblyReference.cache

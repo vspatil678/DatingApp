@@ -6,7 +6,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Photo } from 'src/app/models/photo';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileItem } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 
 const baseUrl = environment.apiUrl;
@@ -61,48 +61,8 @@ export class TakePhotoComponent implements OnInit {
     this.webcamImage = null;
   }
 
-  public onSetAsProfilePhoto(photoToSet: Photo) {
-    this.uploader = new FileUploader({
-      url: baseUrl + 'users/' + this.authService.decodedToken.nameid + '/photos',
-      authToken: 'Bearer ' + localStorage.getItem('token'),
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
-    });
-
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if (response) {
-        const res: Photo = JSON.parse(response);
-        const photo = {
-          Id: res.Id,
-          Url: res.Url,
-          Description: res.Description,
-          DateAdded: res.DateAdded,
-          IsMain: res.IsMain,
-        };
-        this.photos.push(photo);
-        if (photo.IsMain) {
-          this.authService.changeMemberPhoto(photo.Url);
-          this.authService.currentUser.PhotoUrl = photo.Url;
-          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
-        }
-      }
-    };
-    //   this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.Id).subscribe(
-  //     (next) => { this.alertIfyService.success('successfully set to main photo');
-  //                 this.currentMainPhoto = this.photos.filter( p => p.IsMain === true) [0];
-  //                 this.currentMainPhoto.IsMain = false;
-  //                 photo.IsMain = true;
-  //                 // this.getMemberPhotoChange.emit(photo.Url); // not required
-  //                 this.authService.changeMemberPhoto(photo.Url);
-  //                 this.authService.currentUser.PhotoUrl = photo.Url;
-  //                 localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
-  //   },
-  //     (error) => { this.alertIfyService.error(error); }
-  //   );
-  // }
+  public onSetAsProfilePhoto() {
+    this.alertIfyService.message('this feature not implemented yet.');
+    this.dialogRef.close();
   }
 }
