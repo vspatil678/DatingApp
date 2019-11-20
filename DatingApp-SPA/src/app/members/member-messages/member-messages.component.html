@@ -58,8 +58,10 @@
         name ="content" required
         class="form-control input-sm" placeholder="send message">
         <div class="input-group-append">
-          <i class="material-icons mice-icon mr-1" (click)="activateSpeechToText()" *ngIf="showSpeechButton" tooltip="listen me">record_voice_over</i>
-          <i class="material-icons mice-icon mr-1" (click)="stopSpeechToText($event); $event.stopPropagation();" *ngIf="!showSpeechButton" tooltip ="stop listening">voice_over_off</i>
+            <i class="material-icons mice-icon mr-1 ml-1" (click)="onVideoeCall()" tooltip="video call">video_call</i>
+          <i class="material-icons mice-icon mr-1 ml-1" (click)="onVoiceCall()" tooltip="voice call">phone_forwarded</i>
+          <i class="material-icons mice-icon mr-1 ml-1" (click)="activateSpeechToText()" *ngIf="showSpeechButton" tooltip="voice message">record_voice_over</i>
+          <i class="material-icons mice-icon mr-1 ml-1" (click)="stopSpeechToText($event); $event.stopPropagation();" *ngIf="!showSpeechButton" tooltip ="stop listening">voice_over_off</i>
           <button class="btn btn-primary" [disabled]="!messageForm.valid">Send</button>
         </div>
       </div>

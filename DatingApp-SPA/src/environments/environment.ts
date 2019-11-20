@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44373/api/'
+  apiUrl: 'https://localhost:44373/api/',
+  agora: {
+    appId: '39de6a7144bc4331a3bfde6ab4b7eb98'
+  }
 };
 
 /*

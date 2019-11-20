@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { tap } from 'rxjs/operators';
 import { SpeechRecognizationService } from 'src/app/_services/speech-recognization.service';
 import Speech from 'speak-tts';
+import { MatDialog } from '@angular/material/dialog';
+import { CallComponent } from '../call/call.component';
 
 const speech = new Speech();
 @Component({
@@ -27,7 +29,8 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
               private alertify: AlertifyService,
               private authService: AuthService,
               private route: ActivatedRoute,
-              private speechRecognizationService: SpeechRecognizationService) { }
+              private speechRecognizationService: SpeechRecognizationService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadMessages();
@@ -117,5 +120,17 @@ public stopSpeechToText(e: any) {
     this.selectedId = 0;
     this.showSpeakerButton = true;
     speech.cancel();
+  }
+
+  public onVideoeCall() {
+    this.dialog.open(CallComponent);
+    // App ID: 108057f777585ac
+    // Api key 0e5171496721e1effca01b053938752e2c4196af
+  }
+
+  public onVoiceCall() {
+    this.dialog.open(CallComponent);
+    // App ID: 108057f777585ac
+    // Api key 0e5171496721e1effca01b053938752e2c4196af
   }
 }

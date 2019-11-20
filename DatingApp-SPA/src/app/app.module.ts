@@ -41,6 +41,9 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { environment } from 'src/environments/environment';
+import { NgxAgoraModule } from 'ngx-agora';
+import { CallComponent } from './members/call/call.component';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -66,7 +69,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PhotoEditorComponent,
       MemberMessagesComponent,
       TimeAgoPipe,
-      TakePhotoComponent
+      TakePhotoComponent,
+      CallComponent
    ],
    imports: [
       MatIconModule,
@@ -98,6 +102,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
             blacklistedRoutes: ['localhost:44373/api/Auth']
          }
       }),
+      NgxAgoraModule.forRoot({ AppID: environment.agora.appId }),
    ],
    providers: [
       BsModalRef,
@@ -113,7 +118,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    entryComponents: [
-         TakePhotoComponent
+         TakePhotoComponent,
+         CallComponent
    ],
    bootstrap: [
       AppComponent
