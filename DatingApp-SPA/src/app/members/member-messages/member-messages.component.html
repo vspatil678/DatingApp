@@ -10,41 +10,41 @@
       <li *ngFor="let message of this.messages; let id = index">
 
         <!-- to them -->
-        <div *ngIf="message.SenderId == recipientId">
+        <div *ngIf="message.senderId == recipientId">
           <span class="chat-img float-left">
-            <img src="{{message.SenderPhotoUrl}}" alt="{{message.SenderKnownAs}}" class="rounded-circle">
+            <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
           </span>
           <div class="chat-body">
             <div class="header"> 
-              <strong class="primary-font">{{message.SenderKnownAs}}</strong>
+              <strong class="primary-font">{{message.senderKnownAs}}</strong>
               <small class="text-muted float-right">
-                <span class="fa fa-clock-o">{{message.MessageSent | timeAgo}}</span>
+                <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
               </small>
             </div>
-            <p>{{message.Content}} 
-              <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.Id" tooltip="play alexa" (click)="onTextToSpeech(message.Content, message.Id)">play_circle_filled</i> 
-              <i  tooltip="stop alexa" class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.Id" (click)="onStopTextToSpeech()">volume_off</i></p> 
+            <p>{{message.content}} 
+              <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.id" tooltip="play alexa" (click)="onTextToSpeech(message.content, message.id)">play_circle_filled</i> 
+              <i  tooltip="stop alexa" class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.id" (click)="onStopTextToSpeech()">volume_off</i></p> 
           </div>
         </div>
 
         <!-- to me -->
 
-        <div *ngIf="message.SenderId != recipientId">
+        <div *ngIf="message.senderId != recipientId">
             <span class="chat-img float-right">
-              <img src="{{message.SenderPhotoUrl}}" alt="{{message.SenderKnownAs}}" class="rounded-circle">
+              <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
             </span>
             <div class="chat-body">
               <div class="header"> 
                   <small class="text-muted ">
-                      <span class="fa fa-clock-o">{{message.MessageSent | timeAgo}}</span>
-                      <span *ngIf="!message.IsRead" class="text-danger">(unread)</span>
-                      <span *ngIf="message.IsRead" class="text-success">(Read {{message.DateRead | timeAgo}})</span>
+                      <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
+                      <span *ngIf="!message.isRead" class="text-danger">(unread)</span>
+                      <span *ngIf="message.isRead" class="text-success">(Read {{message.dateRead | timeAgo}})</span>
                     </small>
-                <strong class="primary-font float-right">{{message.SenderKnownAs}}</strong>
+                <strong class="primary-font float-right">{{message.senderKnownAs}}</strong>
               </div>
-              <p>{{message.Content}}
-                 <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.Id" tooltip="play alexa" (click)="onTextToSpeech(message.Content, message.Id)">play_circle_filled</i> 
-                 <i  class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.Id" tooltip="stop alexa" (click)="onStopTextToSpeech()">volume_off</i></p>
+              <p>{{message.content}}
+                 <i  class="material-icons mice-icon" *ngIf="showSpeakerButton && selectedId !== message.id" tooltip="play alexa" (click)="onTextToSpeech(message.content, message.id)">play_circle_filled</i> 
+                 <i  class="material-icons mice-icon" *ngIf="!showSpeakerButton && selectedId === message.id" tooltip="stop alexa" (click)="onStopTextToSpeech()">volume_off</i></p>
             </div>
           </div>
       </li>

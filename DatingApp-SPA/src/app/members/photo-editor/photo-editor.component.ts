@@ -49,16 +49,16 @@ export class PhotoEditorComponent implements OnInit {
       if (response) {
         const res: Photo = JSON.parse(response);
         const photo = {
-          Id: res.Id,
-          Url: res.Url,
-          Description: res.Description,
-          DateAdded: res.DateAdded,
-          IsMain: res.IsMain,
+          id: res.id,
+          url: res.url,
+          description: res.description,
+          dateAdded: res.dateAdded,
+          isMain: res.isMain,
         };
         this.photos.push(photo);
-        if (photo.IsMain) {
-          this.authService.changeMemberPhoto(photo.Url);
-          this.authService.currentUser.PhotoUrl = photo.Url;
+        if (photo.isMain) {
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
           localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
         }
       }
@@ -66,14 +66,14 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   public setMainPhoto(photo: Photo) {
-    this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.Id).subscribe(
+    this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(
       (next) => { this.alertifyService.success('successfully set to main photo');
-                  this.currentMainPhoto = this.photos.filter( p => p.IsMain === true) [0];
-                  this.currentMainPhoto.IsMain = false;
-                  photo.IsMain = true;
-                  this.getMemberPhotoChange.emit(photo.Url); // not required
-                  this.authService.changeMemberPhoto(photo.Url);
-                  this.authService.currentUser.PhotoUrl = photo.Url;
+                  this.currentMainPhoto = this.photos.filter( p => p.isMain === true) [0];
+                  this.currentMainPhoto.isMain = false;
+                  photo.isMain = true;
+                  this.getMemberPhotoChange.emit(photo.url); // not required
+                  this.authService.changeMemberPhoto(photo.url);
+                  this.authService.currentUser.photoUrl = photo.url;
                   localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     },
       (error) => { this.alertifyService.error(error); }
@@ -83,7 +83,7 @@ export class PhotoEditorComponent implements OnInit {
   public onPhotoDelete(photoId: number) {
          this.alertifyService.confirm('Are you sure you want to delete this photo?', () => {
          this.userService.deletePhoto(this.authService.decodedToken.nameid, photoId).subscribe(() => {
-         this.photos.splice(this.photos.findIndex(p => p.Id === photoId), 1);
+         this.photos.splice(this.photos.findIndex(p => p.id === photoId), 1);
          this.alertifyService.success('photo deleted successfully');
          }, (error) => { this.alertifyService.error('Fail to delete photo' + error); });
          });

@@ -44,7 +44,7 @@ export class MessagesComponent implements OnInit {
   public deleteMessage(id: number) {
     this.alertify.confirm('Are you sure you want to delete this message', () => {
       this.usersService.deleteMessage(id, this.authService.decodedToken.nameid).subscribe( () => {
-        this.messages.splice(this.messages.findIndex(m => m.Id === id), 1);
+        this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
         this.alertify.success('Message has been deleted');
       }, (error) => { this.alertify.error(error); });
     });

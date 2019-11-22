@@ -1,23 +1,23 @@
 <div class="card mb-4"> 
   <div class="card-image-wrapper">  
-    <img class="card-img-top" src="{{user.PhotoUrl || '../../../assets/user.png'}}" alt="{{user.KnownAs}}">
+    <img class="card-img-top" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
     <ul class="list-inline member-icons animate text-center"> 
       <li class="list-inline-item"> 
-        <button class="btn btn-primary" [routerLink]="['/members/', user.Id]"> <i class= "fa fa-user"></i> </button>
+        <button class="btn btn-primary" [routerLink]="['/members/', user.id]"> <i class= "fa fa-user"></i> </button>
       </li>
       <li class="list-inline-item"> 
-        <button class="btn btn-primary" (click)="onSendLike(user.Id)"> <i class= "fa fa-heart"></i> </button>
+        <button class="btn btn-primary" (click)="onSendLike(user.id)" matTooltip="send like"> <i class= "fa fa-heart"></i> </button>
       </li>
       <li class="list-inline-item"> 
-        <button class="btn btn-primary" [routerLink]="['/members/',user.Id]" [queryParams] = "{tab: 3}">
-           <i class= "fa fa-envelope"></i> </button>
+        <button class="btn btn-primary" [routerLink]="['/members/',user.id]" [queryParams] = "{tab: 3}">
+           <i class= "fa fa-envelope" matTooltip="send message"></i> </button>
       </li>
     </ul>
   </div>
   <div class="card-body p-1"> 
     <h6 class="card-title text-center mb-1"><i class="fa fa-user"></i>
-        {{user.KnownAs}},  {{user.Age}}
+        {{user.knownAs}},  {{user.age}}
     </h6>
-    <p class="card-text text-muted text-center">{{user.City}} </p>
+    <p class="card-text text-muted text-center">{{user.city}} </p>
   </div>
 </div>

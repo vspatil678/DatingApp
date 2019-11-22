@@ -42,8 +42,8 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
       tap(messages => {
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < messages.length; i++) {
-            if (messages[i].IsRead === false && messages[i].RecipientId === currentUserId) {
-              this.usersService.markMessageAsRead(currentUserId, messages[i].Id);
+            if (messages[i].isRead === false && messages[i].recipientId === currentUserId) {
+              this.usersService.markMessageAsRead(currentUserId, messages[i].id);
             }
         }
       })

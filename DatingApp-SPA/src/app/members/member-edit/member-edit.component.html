@@ -12,23 +12,23 @@
 <div class="row"> 
   <div class="col-sm-4">  
     <div class="card">  
-      <img class="card-img-top img-thumbnail" src="{{photoUrl || '../../../assets/user.png'}}" alt="{{user.KnownAs}}">
+      <img class="card-img-top img-thumbnail" src="{{photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
       <div class="card-body"> 
         <div>
           <strong>Location:</strong>
-          <p>{{user.City}}, {{user.Country}}</p>
+          <p>{{user.city}}, {{user.country}}</p>
         </div>
         <div>
           <strong>Age:</strong>
-          <p>{{user.Age}}</p>
+          <p>{{user.age}}</p>
         </div>
         <div>
           <strong>Last Active:</strong>
-          <p>{{user.LastActive | timeAgo}}</p>
+          <p>{{user.lastActive | timeAgo}}</p>
         </div>
         <div>
           <strong>Member since:</strong>
-          <p>{{user.Created | date: 'mediumDate' }}</p>
+          <p>{{user.created | date: 'mediumDate' }}</p>
         </div>
       </div>
       <div class="card-footer">
@@ -57,7 +57,7 @@
           </form>
         </tab>
         <tab heading="Edit Photos">
-          <app-photo-editor [photos]="user.Photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+          <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
         </tab>
       </tabset>
     </div>

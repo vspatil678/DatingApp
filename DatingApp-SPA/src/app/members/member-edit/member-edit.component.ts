@@ -64,20 +64,20 @@ export class MemberEditComponent implements OnInit {
 
   private setValues(userData: User) {
     this.userEditForm.patchValue({
-      Id: userData.Id,
-      UserName: userData.UserName,
-      KnownAs: userData.KnownAs,
-      Age: userData.Age,
-      Gender: userData.Gender,
-      Created: userData.Created,
-      LastActive: userData.LastActive,
-      PhotoUrl: userData.PhotoUrl,
-      Introduction: userData.Introduction,
-      LookingFor: userData.LookingFor,
-      Interests: userData.Interests,
-      City: userData.City,
-      Country: userData.Country,
-      Photos: userData.Photos
+      Id: userData.id,
+      UserName: userData.userName,
+      KnownAs: userData.knownAs,
+      Age: userData.age,
+      Gender: userData.gender,
+      Created: userData.created,
+      LastActive: userData.lastActive,
+      PhotoUrl: userData.photoUrl,
+      Introduction: userData.introduction,
+      LookingFor: userData.lookingFor,
+      Interests: userData.interests,
+      City: userData.city,
+      Country: userData.country,
+      Photos: userData.photos
     });
   }
 
@@ -92,7 +92,7 @@ export class MemberEditComponent implements OnInit {
   }
 
   public updateMainPhoto(photoUrl) {
-      this.user.PhotoUrl = photoUrl;
+      this.user.photoUrl = photoUrl;
   }
 
 }
