@@ -12,6 +12,7 @@ namespace DatingApp.API.Controllers
    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _dataContext;
@@ -28,7 +29,7 @@ namespace DatingApp.API.Controllers
         }
 
         // GET api/values/5
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {

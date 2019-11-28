@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatingApp.API.Models;
+﻿using DatingApp.API.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>,
+        UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -17,7 +16,7 @@ namespace DatingApp.API.Data
         public DbSet<Value> Values { get; set; }
         
         // adding Users Table
-        public DbSet<User> Users { get; set; }
+        // public DbSet<User> Users { get; set; } (IdentityDbContext will takecare)
 
         // adding Photos table
         public DbSet<Photo> Photos { get; set; }
@@ -28,6 +27,21 @@ namespace DatingApp.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserRole>(userRole => {
+                // creating user role with the combination of roleid and userid
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Role).WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId).IsRequired();
+
+                userRole.HasOne(ur => ur.User).WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.UserId).IsRequired();
+
+            });
+
+
             modelBuilder.Entity<Like>().HasKey(k => new { k.LikerId, k.LikeeId });
 
             modelBuilder.Entity<Like>().HasOne(u => u.Likee).WithMany(u => u.Likers)

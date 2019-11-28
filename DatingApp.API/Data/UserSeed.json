@@ -21,7 +21,7 @@
         ]
     },
     {
-        "Username": "Julianne",
+        "Username": "lily",
         "Gender": "female",
         "DateOfBirth": "1989-07-24",
         "Password": "password",
@@ -42,7 +42,7 @@
         ]
     },
     {
-        "Username": "Adela",
+        "Username": "lola",
         "Gender": "female",
         "DateOfBirth": "1999-10-30",
         "Password": "password",
@@ -84,7 +84,7 @@
         ]
     },
     {
-        "Username": "Myrna",
+        "Username": "Alice",
         "Gender": "female",
         "DateOfBirth": "1999-03-03",
         "Password": "password",
@@ -189,7 +189,7 @@
             ]
         },
         {
-            "Username": "Alexander",
+            "Username": "Bob",
             "Gender": "male",
             "DateOfBirth": "2002-06-18",
             "Password": "password",
