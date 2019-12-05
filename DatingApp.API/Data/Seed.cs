@@ -34,17 +34,18 @@ namespace DatingApp.API.Data
                 }
                 foreach (var user in users)
                 {
+                    user.Photos.SingleOrDefault().IsApproved = true;
                   userManager.CreateAsync(user, "password").Wait();
                   userManager.AddToRoleAsync(user, "Member");
                 }
 
                 // create admin user
 
-                var adminUser = new User { UserName = "vinoda", Gender = "Male" };
-                var result = userManager.CreateAsync(adminUser, "vinoda").Result;
+                var adminUser = new User { UserName = "VINODA", Gender = "Male" };
+                var result = userManager.CreateAsync(adminUser, "VINODA").Result;
                 if(result.Succeeded)
                 {
-                    var admin = userManager.FindByNameAsync("vinoda").Result;
+                    var admin = userManager.FindByNameAsync("VINODA").Result;
                     userManager.AddToRolesAsync(admin, new[] { "Admin", "Member", "Moderator" });
                 }
             }

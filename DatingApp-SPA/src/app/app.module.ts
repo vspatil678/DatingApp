@@ -44,6 +44,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { NgxAgoraModule } from 'ngx-agora';
 import { CallComponent } from './members/call/call.component';
+import { AdminModule } from './admin/admin.module';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -70,9 +77,15 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberMessagesComponent,
       TimeAgoPipe,
       TakePhotoComponent,
-      CallComponent
+      CallComponent,
+      AdminPanelComponent,
+      HasRoleDirective,
+      PhotoManagementComponent,
+      UserManagementComponent,
+      RolesModalComponent
    ],
    imports: [
+     // AdminModule,
       MatIconModule,
       MatCardModule,
       MatDialogModule,
@@ -115,11 +128,13 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       ErrorInterceptorProvider,
       AuthService,
       UserService,
+      AdminService,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    entryComponents: [
          TakePhotoComponent,
-         CallComponent
+         CallComponent,
+         RolesModalComponent
    ],
    bootstrap: [
       AppComponent

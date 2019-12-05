@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -57,13 +58,20 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
             var user = await _userManager.FindByNameAsync(userForLoginDto.UserName);
+            if(user == null)
+            {
+                return Unauthorized();
+            }
             var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.PassWord, false);
 
             if(result.Succeeded)
             {
-                var appUser = _mapper.Map<UserForListDto>(user);
+                var appUser = await _userManager.Users.Include(p => p.Photos)
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.UserName.ToUpper());
 
-                return Ok(new { token = GenerateJwtToken(user), user = appUser });
+                var userToReturn = _mapper.Map<UserForListDto>(appUser);
+
+                return Ok(new { token = GenerateJwtToken(appUser).Result, user = userToReturn });
             }
             return Unauthorized();
             
