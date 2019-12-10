@@ -54,6 +54,7 @@ export class PhotoEditorComponent implements OnInit {
           description: res.description,
           dateAdded: res.dateAdded,
           isMain: res.isMain,
+          isApproved: res.isApproved,
         };
         this.photos.push(photo);
         if (photo.isMain) {

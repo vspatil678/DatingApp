@@ -16,3 +16,16 @@ input[type=file] {
     max-width: 600px !important;
     width: 600px !important;
 }
+
+.not-approved {
+    opacity: 0.2;
+}
+
+.img-wrapper {
+    position: relative;
+}
+
+.img-text {
+    position: absolute;
+    bottom: 30%;
+}

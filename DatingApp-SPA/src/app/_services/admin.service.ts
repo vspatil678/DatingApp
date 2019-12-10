@@ -22,4 +22,16 @@ constructor(
     return this.http.post(baseUrl + 'admin/editRoles/' + user.userName, roles);
   }
 
+  public getPhotosForApproval() {
+    return this.http.get(baseUrl + 'admin/photosForModeration');
+  }
+
+  public approvePhoto(photoId) {
+    return this.http.post(baseUrl + 'admin/approvePhoto/' + photoId, {});
+  }
+
+  public rejectPhoto(photoId) {
+    return this.http.post(baseUrl + 'admin/rejectPhoto/' + photoId, {});
+  }
+
 }
