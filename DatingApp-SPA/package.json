@@ -39,6 +39,7 @@
     "ngx-webcam": "^0.2.6",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
+    "serialize-javascript": "^2.1.2",
     "speak-tts": "^2.0.8",
     "time-ago-pipe": "^1.3.2",
     "tslib": "^1.10.0",
