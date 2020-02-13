@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +20,7 @@ namespace DatingApp.API.Controllers
     [ApiController]
     // [ApiController] it behaves like Modelstate.Isvalid (we can use either or both) 
     [AllowAnonymous]
+   // [HandleExceptionAttribute] // explicitly no need to add any try catch for any methods
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;

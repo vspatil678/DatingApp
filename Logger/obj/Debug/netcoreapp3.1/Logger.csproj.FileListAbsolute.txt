@@ -1,0 +1,8 @@
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\bin\Debug\netcoreapp3.1\Logger.deps.json
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\bin\Debug\netcoreapp3.1\Logger.dll
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\bin\Debug\netcoreapp3.1\Logger.pdb
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\obj\Debug\netcoreapp3.1\Logger.csprojAssemblyReference.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\obj\Debug\netcoreapp3.1\Logger.AssemblyInfoInputs.cache
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\obj\Debug\netcoreapp3.1\Logger.AssemblyInfo.cs
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\obj\Debug\netcoreapp3.1\Logger.dll
+C:\_Vinod_Files_Folders\Udemy_Emids\DatingApp\Logger\obj\Debug\netcoreapp3.1\Logger.pdb
