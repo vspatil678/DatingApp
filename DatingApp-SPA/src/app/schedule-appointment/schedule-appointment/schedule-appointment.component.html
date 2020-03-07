@@ -1,0 +1,15 @@
+<!-- <div class="container">
+    <div *ngFor="let time of availableTimes"> 
+        <div class="row">
+            <div class="column times">{{time}}</div>
+            <div class="column"><hr></div>
+        </div>  
+        <hr>
+    </div>
+</div> -->
+
+<app-dynamic-table 
+    [tableHeads] = "tableHead"
+    [tableDatas] ="userDetails" 
+    [tableColName] = "tableColName">
+</app-dynamic-table>

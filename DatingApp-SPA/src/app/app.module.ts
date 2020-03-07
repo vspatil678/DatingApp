@@ -51,6 +51,8 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { AdminService } from './_services/admin.service';
 import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
+import { ScheduleAppointmentComponent } from './schedule-appointment/schedule-appointment/schedule-appointment.component';
+import { DynamicTableComponent } from './schedule-appointment/dynamic-table/dynamic-table.component';
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
@@ -82,7 +84,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       HasRoleDirective,
       PhotoManagementComponent,
       UserManagementComponent,
-      RolesModalComponent
+      RolesModalComponent,
+      ScheduleAppointmentComponent,
+      DynamicTableComponent
    ],
    imports: [
      // AdminModule,
